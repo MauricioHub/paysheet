@@ -19,7 +19,7 @@ class RegisterController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
             'c_password' => 'required|same:password',
         ]);
