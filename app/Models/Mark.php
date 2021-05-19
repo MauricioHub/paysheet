@@ -1,6 +1,7 @@
 <?php 
-namespace App;
-   
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;   
 use Illuminate\Database\Eloquent\Model;
    
 class Mark extends Model
@@ -11,6 +12,6 @@ class Mark extends Model
      * @var array
      */
     protected $fillable = [
-        'picture', 'mark_date'
+        'picture', 'mark_date', 'lat', 'lng', 'user_id', 'mark_type_id'
     ];
 }
