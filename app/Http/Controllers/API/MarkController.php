@@ -47,13 +47,25 @@ class MarkController extends BaseController
 
              $image_64 = $request['picture']; //your base64 encoded data
 
-             $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1]; 
-             $replace = substr($image_64, 0, strpos($image_64, ',')+1); 
-             $image = str_replace($replace, '', $image_64); 
-             $image = str_replace(' ', '+', $image); 
+            // $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
+             $imageSubStr = substr($image_64, 0, strpos($image_64, ';'));
+             if ($imageSubStr != "") {
+                 $imageSubDotsLst = explode(':', $imageSubStr);
+                 if (sizeof($imageSubDotsLst) > 0) {
+                     $imageSubSlashLst = explode('/', $imageSubDotsLst[1]);
+                     if (sizeof($imageSubSlashLst) > 0) {
+                         $extension = $imageSubSlashLst[1];
+                         $replace = substr($image_64, 0, strpos($image_64, ',')+1); 
+                         $image = str_replace($replace, '', $image_64); 
+                         $image = str_replace(' ', '+', $image); 
 
-             $imageName = Str::random(10).'.'.$extension;
-             Storage::disk('public')->put($imageName, base64_decode($image));
+                         $imageName = Str::random(10).'.'.$extension;
+                         Storage::disk('public')->put($imageName, base64_decode($image));
+                     } else{
+                        $imageName = "";
+                     }
+                 }
+             } 
        
             $input['picture'] = '/public/' . $imageName;
             $mark = Mark::create($input); 
