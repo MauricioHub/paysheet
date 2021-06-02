@@ -36,6 +36,7 @@ class MarkController extends BaseController
 
         try {
             $input = $request->all();
+            $user = User::where('email', '=', $request['user_id'])->firstOrFail();
        
             $validator = Validator::make($input, [
                 'picture' => 'required',
@@ -68,6 +69,7 @@ class MarkController extends BaseController
                  }
              } 
        
+            $input['user_id'] = $user->id;
             $input['picture'] = '/public/' . $imageName;
             $mark = Mark::create($input); 
         } catch (exception $e) {
