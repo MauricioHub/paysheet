@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\Mark;
+use App\Models\User;
 use Validator;
 use Storage;
 use App\Http\Resources\Mark as MarkResource;
@@ -139,5 +140,19 @@ class MarkController extends BaseController
         }
    
         return $this->sendResponse([], 'Mark deleted successfully.');
+    }
+
+
+    public function testingMethod($cedula){
+        try {
+            $user = User::where('email', '=', $cedula)->firstOrFail();
+            //$user->id;
+            //Page::where('slug', '=', 'about')->firstOrFail();
+      
+        } catch (exception $e) {
+            Echo "" . $e;
+        }
+   
+        return $this->sendResponse($user, 'Mark Testing function.' . $user->id);
     }
 }

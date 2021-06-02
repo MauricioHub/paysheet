@@ -18,8 +18,10 @@ class CreateMarksTable extends Migration
             $table->string('mark_date');
             $table->string('lat');
             $table->string('lng');
-            $table->integer('user_id');
-            $table->integer('mark_type_id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('mark_type_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('mark_type_id')->references('id')->on('mark_type');
             $table->text('picture');
             $table->timestamps();
         });

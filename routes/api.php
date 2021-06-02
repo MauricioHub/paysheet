@@ -20,5 +20,6 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
      
 Route::middleware('auth:api')->group( function () {
+	Route::get('marks/testing/{cedula}', [MarkController::class, 'testingMethod']);
     Route::resource('marks', MarkController::class);
 });
